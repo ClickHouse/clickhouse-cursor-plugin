@@ -1,34 +1,30 @@
-# Cursor plugin template
+# ClickHouse Cursor plugin
 
-Build and publish Cursor Marketplace plugins from a single repo.
+Cursor plugin that adds **ClickHouse skills** and **MCP** support (starter-advanced style with minimal folders).
 
-Two starter plugins are included:
+## What’s included
 
-- **starter-simple**: rules and skills only
-- **starter-advanced**: rules, skills, agents, commands, hooks, MCP, and scripts
+- **Skills** – ClickHouse best-practices guidance (schema, queries, ingestion) from [ClickHouse/agent-skills](https://github.com/ClickHouse/agent-skills).
+- **MCP** – ClickHouse MCP server config in `mcp.json` (URL: wip); customize or remove as needed.
 
-## Getting started
+## How to use
 
-[Use this template](https://github.com/cursor/plugin-template/generate) to create a new repository, then customize:
+After the plugin is installed, its skills and MCP are available to Cursor’s agent.
 
-1. `.cursor-plugin/marketplace.json`: set marketplace `name`, `owner`, and `metadata`.
-2. `plugins/*/.cursor-plugin/plugin.json`: set `name` (lowercase kebab-case), `displayName`, `author`, `description`, `keywords`, `license`, and `version`.
-3. Replace placeholder rules, skills, agents, commands, hooks, scripts, and logos.
+- **ClickHouse best-practices** – When you’re writing or editing ClickHouse SQL, schemas, or ingestion logic, the agent can use this skill automatically. You can also ask explicitly, e.g. *“Check this query against ClickHouse best practices.”*
+- **MCP** – The plugin’s `mcp.json` configures the ClickHouse MCP server (HTTP endpoint). Once the plugin is installed, Cursor can use it to run queries, inspect schemas, or otherwise interact with ClickHouse when the agent needs it. Configure any required credentials or endpoints in Cursor’s MCP settings if your setup needs them.
 
-To add more plugins, see `docs/add-a-plugin.md`.
+## Install
 
-## Single plugin vs multi-plugin
+- **From Cursor Marketplace** (when published): install the “ClickHouse Cursor” plugin from the marketplace.
+- **From this repo**: clone or download the repo and add it as a local plugin in Cursor (see Cursor docs for loading a plugin from a folder).
 
-This template defaults to **multi-plugin** (multiple plugins in one repo).
+If you clone the repo, use submodules so the ClickHouse best-practices skill is available:
 
-For a **single plugin**, move your plugin folder contents to the repository root, keep one `.cursor-plugin/plugin.json`, and remove `.cursor-plugin/marketplace.json`.
+```bash
+git clone --recurse-submodules https://github.com/ClickHouse/clickhouse-cursor-plugin.git
+```
 
-## Submission checklist
+## License
 
-- Each plugin has a valid `.cursor-plugin/plugin.json`.
-- Plugin names are unique, lowercase, and kebab-case.
-- `.cursor-plugin/marketplace.json` entries map to real plugin folders.
-- All frontmatter metadata is present in rule, skill, agent, and command files.
-- Logos are committed and referenced with relative paths.
-- `node scripts/validate-template.mjs` passes.
-- Repository link is ready for submission to the Cursor team (Slack or `kniparko@anysphere.com`).
+Apache 2.0. See [LICENSE](LICENSE).

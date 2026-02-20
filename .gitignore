@@ -4,6 +4,7 @@
 !.env.example
 
 # OS and editor
+.cursor/
 .DS_Store
 *.swp
 *.swo

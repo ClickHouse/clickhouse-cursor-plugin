@@ -1,0 +1,6 @@
+{
+  "clickhouse": {
+    "type": "http",
+    "url": "wip"
+  }
+}
