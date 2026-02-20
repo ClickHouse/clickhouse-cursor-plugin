@@ -5,9 +5,9 @@
   "description": "ClickHouse Cursor plugin: skills (ClickHouse best practices), rules and MCP.",
   "author": {
     "name": "ClickHouse",
-    "email": "wip"
+    "email": "ai@clickhouse.com"
   },
-  "keywords": ["cursor", "plugin", "clickhouse", "skills", "mcp"],
+  "keywords": ["database", "clickhouse", "skills", "mcp", "analytics"],
   "license": "Apache-2.0",
   "logo": "assets/logo.svg"
 }
