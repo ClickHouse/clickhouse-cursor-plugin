@@ -5,7 +5,7 @@ Cursor plugin that adds **ClickHouse skills** and **MCP** support.
 ## What’s included
 
 - **Skills** – `skills` is a symlink to `submodules/agent-skills/skills` (ClickHouse best-practices from [ClickHouse/agent-skills](https://github.com/ClickHouse/agent-skills)).
-- **MCP** – ClickHouse MCP server config in `mcp.json` (https://mcp.clickhouse.cloud/mcp).
+- **MCP** – ClickHouse MCP server config in `mcp.json`.
 
 ## Prerequisites
 
