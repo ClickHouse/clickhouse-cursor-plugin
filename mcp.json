@@ -1,6 +1,6 @@
 {
   "clickhouse": {
     "type": "http",
-    "url": "wip"
+    "url": "https://mcp.clickhouse.cloud/mcp"
   }
 }

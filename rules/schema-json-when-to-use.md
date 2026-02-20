@@ -1,1 +1,0 @@
-../agent-skills/skills/clickhouse-best-practices/rules/schema-json-when-to-use.md

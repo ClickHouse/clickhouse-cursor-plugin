@@ -1,1 +1,0 @@
-../agent-skills/skills/clickhouse-best-practices/rules/schema-pk-filter-on-orderby.md

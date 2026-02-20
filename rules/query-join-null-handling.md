@@ -1,1 +1,0 @@
-../agent-skills/skills/clickhouse-best-practices/rules/query-join-null-handling.md

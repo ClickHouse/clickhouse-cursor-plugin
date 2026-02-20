@@ -1,1 +1,0 @@
-../agent-skills/skills/clickhouse-best-practices/rules/insert-mutation-avoid-update.md
