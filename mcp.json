@@ -1,6 +1,8 @@
 {
-  "clickhouse": {
-    "type": "http",
-    "url": "https://mcp.clickhouse.cloud/mcp"
+  "mcpServers": {
+    "clickhouse": {
+      "type": "http",
+      "url": "https://mcp.clickhouse.cloud/mcp"
+    }
   }
 }

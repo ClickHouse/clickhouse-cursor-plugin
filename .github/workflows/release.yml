@@ -1,0 +1,29 @@
+# Simple release: validate version and attach plugin zip to GitHub Release.
+# Trigger: create a release (tag e.g. v1.0.0) and publish it.
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate version
+        run: |
+          TAG="${{ github.event.release.tag_name }}"
+          # Allow v1.0.0 or 1.0.0
+          VERSION="${TAG#v}"
+          PLUGIN_VERSION=$(jq -r '.version' .cursor-plugin/plugin.json)
+          if [ "$PLUGIN_VERSION" != "$VERSION" ]; then
+            echo "::error::plugin.json version ($PLUGIN_VERSION) does not match release tag ($TAG). Update .cursor-plugin/plugin.json to $VERSION before releasing."
+            exit 1
+          fi
+          echo "Version OK: $PLUGIN_VERSION"
