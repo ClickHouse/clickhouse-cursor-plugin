@@ -1,0 +1,1 @@
+../agent-skills/skills/clickhouse-best-practices/rules/schema-pk-prioritize-filters.md

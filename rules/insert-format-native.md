@@ -1,0 +1,1 @@
+../agent-skills/skills/clickhouse-best-practices/rules/insert-format-native.md

@@ -1,0 +1,1 @@
+../agent-skills/skills/clickhouse-best-practices/rules/schema-pk-plan-before-creation.md

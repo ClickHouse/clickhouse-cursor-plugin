@@ -1,0 +1,1 @@
+../agent-skills/skills/clickhouse-best-practices/rules/query-join-filter-before.md

@@ -1,11 +1,26 @@
 # ClickHouse Cursor plugin
 
-Cursor plugin that adds **ClickHouse skills** and **MCP** support (starter-advanced style with minimal folders).
+Cursor plugin that adds **ClickHouse skills**, **rules** and **MCP** support.
 
 ## What’s included
 
 - **Skills** – ClickHouse best-practices guidance (schema, queries, ingestion) from [ClickHouse/agent-skills](https://github.com/ClickHouse/agent-skills).
+- **Rules** – Individual rule files in `rules/` (symlinked from agent-skills), used by the agent for schema, query, and insert reviews.
 - **MCP** – ClickHouse MCP server config in `mcp.json` (URL: wip); customize or remove as needed.
+
+## Rules
+
+The plugin exposes **28 ClickHouse best-practice rules** in the `rules/` directory. They are grouped by impact and category:
+
+| Category              | Impact   | Description |
+|-----------------------|----------|-------------|
+| **Schema Design**     | CRITICAL | Primary key selection, data types, partitioning, JSON usage. |
+| **Query Optimization**| CRITICAL | JOINs, filtering, skipping indices, materialized views. |
+| **Insert Strategy**   | CRITICAL | Batching, async inserts, mutation avoidance, OPTIMIZE. |
+
+- **Location:** `rules/` (each `.md` file is one rule; contents are from [ClickHouse/agent-skills](https://github.com/ClickHouse/agent-skills) `skills/clickhouse-best-practices/rules/`).
+- **Skill overview:** `skills/clickhouse-best-practices/SKILL.md` (symlink) describes when and how to apply the rules.
+- The agent uses these rules when reviewing schemas, queries, or ingestion; you can ask e.g. *"Check this query against ClickHouse best practices."*
 
 ## How to use
 
