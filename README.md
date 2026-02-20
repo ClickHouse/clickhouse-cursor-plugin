@@ -5,21 +5,23 @@ Cursor plugin that adds **ClickHouse skills** and **MCP** support.
 ## What’s included
 
 - **Skills** – `skills` is a symlink to `submodules/agent-skills/skills` (ClickHouse best-practices from [ClickHouse/agent-skills](https://github.com/ClickHouse/agent-skills)).
-- **MCP** – ClickHouse MCP server config in `mcp.json` (https://mcp.clickhouse.cloud/mcp); customize or remove as needed.
+- **MCP** – ClickHouse MCP server config in `mcp.json` (https://mcp.clickhouse.cloud/mcp).
 
 ## How to use
 
-After the plugin is installed, its skills and MCP are available to Cursor’s agent.
+After the plugin is installed from the **Cursor Marketplace**, its skills and MCP are available to Cursor’s agent.
 
 - **ClickHouse best-practices** – When you’re writing or editing ClickHouse SQL, schemas, or ingestion logic, the agent can use this skill automatically. You can also ask explicitly, e.g. *“Check this query against ClickHouse best practices.”*
-- **MCP** – The plugin’s `mcp.json` configures the ClickHouse MCP server (HTTP endpoint). Once the plugin is installed, Cursor can use it to run queries, inspect schemas, or otherwise interact with ClickHouse when the agent needs it. Configure any required credentials or endpoints in Cursor’s MCP settings if your setup needs them.
+- **MCP** – The plugin’s `mcp.json` configures the ClickHouse MCP server (HTTP endpoint). Once the plugin is installed, and the user authenticates, Cursor can use it to run queries, inspect schemas, or otherwise interact with ClickHouse when the agent needs it. Configure any required credentials or endpoints in Cursor’s MCP settings if your setup needs them.
 
 ## Install
 
-- **From Cursor Marketplace** (when published): install the “ClickHouse Cursor” plugin from the marketplace.
-- **From this repo**: clone or download the repo and add it as a local plugin in Cursor (see Cursor docs for loading a plugin from a folder).
+Install the **ClickHouse Cursor** plugin from the **Cursor Marketplace**. 
+Once installed, follow the prompt to authenticate with your ClickHouse account using OAuth.
 
-If you clone the repo, use submodules so the skills symlink resolves (submodule lives at `submodules/agent-skills`):
+## Development
+
+If you clone or fork this repo (e.g. to contribute or customize), use submodules so the `skills` symlink resolves (submodule lives at `submodules/agent-skills`):
 
 ```bash
 git clone --recurse-submodules https://github.com/ClickHouse/clickhouse-cursor-plugin.git

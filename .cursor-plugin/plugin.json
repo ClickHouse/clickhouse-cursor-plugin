@@ -9,6 +9,5 @@
   },
   "keywords": ["cursor", "plugin", "clickhouse", "skills", "mcp"],
   "license": "Apache-2.0",
-  "logo": "assets/logo.svg",
-  "rules": "rules"
+  "logo": "assets/logo.svg"
 }
