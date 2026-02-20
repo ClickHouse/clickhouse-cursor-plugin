@@ -35,12 +35,13 @@ jobs:
           TAG="${{ github.event.release.tag_name }}"
           VERSION="${TAG#v}"
           BUNDLE_NAME="clickhouse-cursor-plugin-${VERSION}"
-          tar -czvf "$GITHUB_WORKSPACE/${BUNDLE_NAME}.tar.gz" \
+          BUNDLE_TAR="/tmp/${BUNDLE_NAME}.tar.gz"
+          tar -czvf "$BUNDLE_TAR" \
             --dereference \
             --exclude='.git' \
             --exclude='submodules' \
             .
-          echo "BUNDLE_TAR=$GITHUB_WORKSPACE/${BUNDLE_NAME}.tar.gz" >> "$GITHUB_ENV"
+          echo "BUNDLE_TAR=$BUNDLE_TAR" >> "$GITHUB_ENV"
 
       - name: Upload release asset
         env:
