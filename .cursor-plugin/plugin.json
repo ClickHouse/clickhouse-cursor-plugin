@@ -1,7 +1,7 @@
 {
   "name": "clickhouse-cursor-plugin",
   "displayName": "ClickHouse",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "ClickHouse Cursor plugin: skills (ClickHouse best practices), rules and MCP.",
   "author": {
     "name": "ClickHouse",
