@@ -1,0 +1,45 @@
+name: Sync Agent Skills
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # Weekly on Monday at 6am UTC
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: 3932009
+          private-key: ${{ secrets.CH_CURSOR_GITHUB_APP_PRIVATE_KEY }}
+
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          submodules: true
+
+      - name: Update submodule to latest
+        run: git submodule update --init --remote submodules/agent-skills
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if git diff --quiet submodules/; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push changes directly
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add submodules/agent-skills
+          git commit -m "sync: update skills from agent-skills"
+          git pull --rebase origin main
+          git push origin main
