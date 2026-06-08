@@ -1,9 +1,12 @@
-name: Sync Agent Skills
+name: Sync Agent Skills and Release
 
 on:
   schedule:
     - cron: '0 6 * * 1' # Weekly on Monday at 6am UTC
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   sync:
@@ -21,6 +24,7 @@ jobs:
         with:
           token: ${{ steps.app-token.outputs.token }}
           submodules: true
+          fetch-depth: 0
 
       - name: Update submodule to latest
         run: git submodule update --init --remote submodules/agent-skills
@@ -34,12 +38,33 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Push changes directly
+      - name: Bump version, commit and push
         if: steps.diff.outputs.changed == 'true'
+        id: bump
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add submodules/agent-skills
-          git commit -m "sync: update skills from agent-skills"
+
+          # Bump the patch version in plugin.json so it matches the new release tag.
+          CURRENT_VERSION=$(jq -r '.version' .cursor-plugin/plugin.json)
+          NEW_VERSION=$(echo "$CURRENT_VERSION" | awk -F. '{$NF = $NF + 1;} 1' OFS=.)
+          jq --arg v "$NEW_VERSION" '.version = $v' .cursor-plugin/plugin.json > .cursor-plugin/plugin.json.tmp
+          mv .cursor-plugin/plugin.json.tmp .cursor-plugin/plugin.json
+
+          git add submodules/agent-skills .cursor-plugin/plugin.json
+          git commit -m "sync: update skills from agent-skills and bump version to $NEW_VERSION"
           git pull --rebase origin main
           git push origin main
+          echo "version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Publish release
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          # Publishing the release triggers release.yml, which validates the
+          # version and attaches the plugin bundle to the release.
+          gh release create "v${{ steps.bump.outputs.version }}" \
+            --target main \
+            --title "v${{ steps.bump.outputs.version }}" \
+            --generate-notes
